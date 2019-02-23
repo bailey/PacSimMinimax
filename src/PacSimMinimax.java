@@ -80,6 +80,9 @@ public class PacSimMinimax implements PacAction {
 
 
 		List<Point> food = PacUtils.findFood(grid);
+		List<Point> morphs = PacUtils.findMorphs(grid);
+		//PacUtils.po
+		PacUtils.appendPointList(food,morphs);
 		// get ghost and pac positions
 		List<Point> ghostPositions = PacUtils.findGhosts(grid);
 		Point pacPosition = PacUtils.findPacman(grid).getLoc();
@@ -139,10 +142,10 @@ public class PacSimMinimax implements PacAction {
 			// evaluate grid
 
 			// return evaluate(boardState);
-			return 100- boardState.food.size();
+			return 100 - boardState.food.size();
 		}
 
-		List newFood = PacUtils.clonePointList(boardState.food);
+		List<Point> newFood = PacUtils.clonePointList(boardState.food);
 
 		int maxValue = Integer.MIN_VALUE;
 		List<Point> pacMoves = getMoves(boardState.pacPos);
@@ -153,7 +156,7 @@ public class PacSimMinimax implements PacAction {
 					newFood.remove(move);
 				}
 				BoardState bs = new BoardState(newFood,move,boardState.g1Pos,boardState.g2Pos);
-				int val = min(boardState, depth,alpha,beta);
+				int val = min(bs, depth,alpha,beta);
 				maxValue = Integer.max(maxValue,val);
 				if (maxValue>=beta){
 					return maxValue;
@@ -204,14 +207,14 @@ public class PacSimMinimax implements PacAction {
 	 * appears to be the best approach at the time.
 	 *
 	* */
-	public PacFace miniMax(BoardState boardState, int depth){
+	private PacFace miniMax(BoardState boardState, int depth){
 
 		// for each move available to pacman, change pac's position in board (N,S,E,W)
 		Point pacPos = boardState.pacPos;
 
 		// put possible moves into array
 		List<Point> moves;
-		List newFood = PacUtils.clonePointList(boardState.food);
+		List<Point> newFood = PacUtils.clonePointList(boardState.food);
 		moves = getMoves(pacPos);
 		PacFace face = null;
 		//int maxIndex = moves.indexOf(Collections.max(min(moves)));
@@ -223,25 +226,26 @@ public class PacSimMinimax implements PacAction {
 		int beta = Integer.MAX_VALUE;
 		for(Point move : moves){
 			if (move != null){
-				// check to see if we ate any food
+
 				if (newFood.contains(move)){
+					//System.out.printf("%s will eat food\n",move.toString());
 					newFood.remove(move);
 				}
 				BoardState bs = new BoardState(newFood,move,boardState.g1Pos,boardState.g2Pos);
-				int val = min(boardState, depth,alpha,beta);
+				int val = min(bs, depth,alpha,beta);
 				if (val>maxVal){
 					maxVal = val;
 					maxIndex = i;
 				}
 
-				System.out.printf("%d : %d\n",i,val);
+				//System.out.printf("%s : %d\n",move.toString(),val);
 
 			}
 			i++;
 
 		}
 
-		System.out.println();
+		//System.out.printf("Move take: %s %d\n",moves.get(maxIndex),maxVal);
 
 		//System.exit(0);
 		switch(maxIndex){
