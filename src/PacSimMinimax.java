@@ -18,6 +18,8 @@ public class PacSimMinimax implements PacAction {
 	int depth;
 	boolean firstPass;
 	PacCell[][] board;
+	static final int win = 1000000;
+	static final int lose = -1000000;
 
 
 
@@ -66,6 +68,49 @@ public class PacSimMinimax implements PacAction {
 	public void init(){
 		firstPass = true;
 		board = null;
+	}
+
+	public int evalFunct(PacCell[][] state, Point pac){
+
+		int score = 1;
+
+		int remainingFood = PacUtils.numFood(state);
+
+		if (remainingFood == 0)
+			return win; // no more food to attain = win
+
+		Point nearestFood = PacUtils.nearestFood(pac, state);
+		Point nearestGoody = PacUtils.nearestGoody(pac, state);
+		GhostCell nearestGhost = PacUtils.nearestGhost(pac, state);
+
+		int foodDist = PacUtils.manhattanDistance(pac, nearestFood);
+		int goodyDist = PacUtils.manhattanDistance(pac, nearestGoody);
+		int ghostDist = PacUtils.manhattanDistance(pac, nearestGhost.getLoc());
+
+		/*switch(nearestGhost.getMode()){
+			case FEAR:
+
+			case CHASE:
+
+			case SCATTER:
+		}*/
+
+		if (ghostDist <= 1)
+			return lose;
+
+		if (foodDist <= ghostDist){
+			score *= 20;
+
+			if (foodDist < 3)
+				score += 1;
+		}
+
+		if (ghostDist > 1)
+			score += 20;
+
+		return score;
+
+
 	}
 
 
@@ -140,9 +185,8 @@ public class PacSimMinimax implements PacAction {
 	private int max(BoardState boardState, int depth, int alpha, int beta){
 		if (depth == 0) {
 			// evaluate grid
-
-			// return evaluate(boardState);
-			return 100 - boardState.food.size();
+			return  evalFunct(board, boardState.pacPos);
+			//return 100 - boardState.food.size();
 		}
 
 		List<Point> newFood = PacUtils.clonePointList(boardState.food);
