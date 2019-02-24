@@ -21,6 +21,14 @@ public class PacSimMinimax implements PacAction {
 	static final int win = 1000000;
 	static final int lose = -1000000;
 
+	private class PointInt{
+		public final Point p;
+		public final int i;
+		public PointInt(Point p, int i){
+			this.p = p;
+			this.i = i;
+		}
+	}
 
 
 	public PacSimMinimax( int depth, String fname, int te, int gran, int max ) {
@@ -70,22 +78,22 @@ public class PacSimMinimax implements PacAction {
 		board = null;
 	}
 
-	public int evalFunct(PacCell[][] state, Point pac){
+	public int evalFunct(BoardState boardState, Point pac){
 
-		int score = 1;
+		int score = 0;
 
-		int remainingFood = PacUtils.numFood(state);
+		int remainingFood = boardState.food.size();
 
 		if (remainingFood == 0)
 			return win; // no more food to attain = win
 
-		Point nearestFood = PacUtils.nearestFood(pac, state);
-		Point nearestGoody = PacUtils.nearestGoody(pac, state);
-		GhostCell nearestGhost = PacUtils.nearestGhost(pac, state);
+		PointInt nearestFood = nearest(pac, boardState.food);
 
-		int foodDist = PacUtils.manhattanDistance(pac, nearestFood);
-		int goodyDist = PacUtils.manhattanDistance(pac, nearestGoody);
-		int ghostDist = PacUtils.manhattanDistance(pac, nearestGhost.getLoc());
+		PointInt nearestGhost = nearest(pac, new ArrayList<>(
+			Arrays.asList(boardState.g1Pos, boardState.g2Pos)));
+
+
+
 
 		/*switch(nearestGhost.getMode()){
 			case FEAR:
@@ -95,18 +103,18 @@ public class PacSimMinimax implements PacAction {
 			case SCATTER:
 		}*/
 
-		if (ghostDist <= 1)
+		if (nearestGhost.i <= 1)
 			return lose;
 
-		if (foodDist <= ghostDist){
-			score *= 20;
 
-			if (foodDist < 3)
-				score += 1;
-		}
+		score += 2*(nearestFood.i-nearestGhost.i);
 
-		if (ghostDist > 1)
-			score += 20;
+
+		score += 10/nearestFood.i;
+
+
+
+		score -= 10/nearestGhost.i;
 
 		return score;
 
@@ -185,7 +193,7 @@ public class PacSimMinimax implements PacAction {
 	private int max(BoardState boardState, int depth, int alpha, int beta){
 		if (depth == 0) {
 			// evaluate grid
-			return  evalFunct(board, boardState.pacPos);
+			return  evalFunct(boardState, boardState.pacPos);
 			//return 100 - boardState.food.size();
 		}
 
@@ -282,17 +290,18 @@ public class PacSimMinimax implements PacAction {
 					maxIndex = i;
 				}
 
-				//System.out.printf("%s : %d\n",move.toString(),val);
+				System.out.printf("%s : %d\n",move.toString(),val);
 
 			}
 			i++;
 
 		}
 
-		//System.out.printf("Move take: %s %d\n",moves.get(maxIndex),maxVal);
+		System.out.printf("Move taken: %s %d\n",moves.get(maxIndex),maxVal);
 
 		//System.exit(0);
 		switch(maxIndex){
+
 			case 0:
 				face = PacFace.N; // index 0
 				break;
@@ -305,9 +314,31 @@ public class PacSimMinimax implements PacAction {
 			case 3:
 				face = PacFace.W; // index 3
 				break;
+			default:
+				//face = PacFace.N;
+
 		}
 
 
 		return face;
+	}
+
+	private PointInt nearest(Point start, List<Point> points){
+		// for each point in points calculate bfs distance. retrun point with smallest distance
+
+		Point closest = null;
+		int minDist = Integer.MAX_VALUE;
+
+		for (Point p: points){
+			int temp = BFSPath.getPath(board,start,p).size();
+			if (temp<minDist){
+				closest =p;
+				minDist = temp;
+			}
+		}
+
+		PointInt pi = new PointInt(closest,minDist);
+		return pi;
+
 	}
 }

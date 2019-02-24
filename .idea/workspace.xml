@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3f6d1d0d-2d66-4b4e-a20b-97c1d9df842d" name="Default Changelist" comment="" />
+    <list default="true" id="3f6d1d0d-2d66-4b4e-a20b-97c1d9df842d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PacSimMinimax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PacSimMinimax.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,16 +17,29 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/PacSimMinimax.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+            <state relative-caret-position="253">
+              <caret line="317" column="18" selection-start-line="317" selection-start-column="18" selection-end-line="317" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#evalFunct#0;class#PacSimMinimax#0" />
+                <element signature="method#action#0;class#PacSimMinimax#0" />
+                <element signature="method#getMoves#0;class#PacSimMinimax#0" />
+                <element signature="method#max#0;class#PacSimMinimax#0" />
+                <element signature="method#min#0;class#PacSimMinimax#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>evalFunct</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -32,43 +48,35 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="531" />
+    <option name="y" value="-4" />
+    <option name="width" value="928" />
+    <option name="height" value="954" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="PacSimMinimax" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PacSimMinimax" type="462c0819:PsiDirectoryNode" />
+              <item name="PA2MiniMax" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PA2MiniMax" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="PacSimMinimax" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PacSimMinimax" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PacSimMinimax" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PacSimMinimax" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PacSimMinimax" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PacSimMinimax" type="462c0819:PsiDirectoryNode" />
+              <item name="PA2MiniMax" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PA2MiniMax" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -99,11 +107,23 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.test">
+    <configuration name="test" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="PacSimMinimax" />
+      <module name="PacSimMinimax" />
+      <option name="PROGRAM_PARAMETERS" value="game-small-new 2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PacSimLib.jar" type="JarApplication" factoryName="JAR Application" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/lib/PacSimLib.jar" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.test" />
+      <item itemvalue="JAR Application.PacSimLib.jar" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JAR Application.PacSimLib.jar" />
@@ -124,9 +144,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="65" y="-4" width="1855" height="954" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2532189" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12382532" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -134,17 +155,17 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Learn" order="6" />
       <window_info id="Favorites" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" visible="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32891566" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.31719127" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39951575" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="9" visible="true" weight="0.3292978" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32891566" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -156,12 +177,29 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../prog1/TestAI1/RNNA/src/main/java/PacSimRNNA.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="236" column="53" selection-start-line="236" selection-start-column="8" selection-end-line="236" selection-end-column="53" />
+          <folding>
+            <element signature="method#action#0;class#PacSimRNNA#0" />
+            <element signature="method#makeCostTable#0;class#PacSimRNNA#0" />
+            <element signature="method#printPopulation#0;class#PacSimRNNA#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/PacSimMinimax.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+        <state relative-caret-position="253">
+          <caret line="317" column="18" selection-start-line="317" selection-start-column="18" selection-end-line="317" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#evalFunct#0;class#PacSimMinimax#0" />
+            <element signature="method#action#0;class#PacSimMinimax#0" />
+            <element signature="method#getMoves#0;class#PacSimMinimax#0" />
+            <element signature="method#max#0;class#PacSimMinimax#0" />
+            <element signature="method#min#0;class#PacSimMinimax#0" />
           </folding>
         </state>
       </provider>
