@@ -107,6 +107,8 @@ public class PacSimMinimax implements PacAction {
 			return lose;
 
 
+		score += 100-remainingFood;
+
 		score += 2*(nearestFood.i-nearestGhost.i);
 
 
@@ -114,7 +116,7 @@ public class PacSimMinimax implements PacAction {
 
 
 
-		score -= 10/nearestGhost.i;
+		score -= 100/nearestGhost.i;
 
 		return score;
 
@@ -290,14 +292,14 @@ public class PacSimMinimax implements PacAction {
 					maxIndex = i;
 				}
 
-				System.out.printf("%s : %d\n",move.toString(),val);
+				//System.out.printf("%s dir:%d val: %d\n",pacPos.toString(),i,val);
 
 			}
 			i++;
 
 		}
 
-		System.out.printf("Move taken: %s %d\n",moves.get(maxIndex),maxVal);
+		//System.out.printf("Move taken: %s %d\n",moves.get(maxIndex),maxVal);
 
 		//System.exit(0);
 		switch(maxIndex){
@@ -314,7 +316,7 @@ public class PacSimMinimax implements PacAction {
 			case 3:
 				face = PacFace.W; // index 3
 				break;
-			default:
+			//default:
 				//face = PacFace.N;
 
 		}
