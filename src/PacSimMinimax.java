@@ -135,8 +135,7 @@ public class PacSimMinimax implements PacAction {
 
 
 		List<Point> food = PacUtils.findFood(grid);
-		List<Point> morphs = PacUtils.findMorphs(grid);
-		//PacUtils.po
+
 		PacUtils.appendPointList(food,morphs);
 		// get ghost and pac positions
 		List<Point> ghostPositions = PacUtils.findGhosts(grid);
