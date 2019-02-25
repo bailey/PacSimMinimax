@@ -83,7 +83,7 @@ public class PacSimMinimax implements PacAction {
 	private int evalFunct(BoardState boardState, Point pac){
 
 		int score = 0;
-
+		int factor = 2;
 		int remainingFood = boardState.food.size();
 
 		if (remainingFood == 0)
@@ -94,10 +94,11 @@ public class PacSimMinimax implements PacAction {
 		PointInt nearestGhost = nearest(pac, new ArrayList<>(
 			Arrays.asList(boardState.g1Pos, boardState.g2Pos)));
 
+		PacMode ghostMode = PacUtils.nearestGhost(pac,board).getMode();
 
 
 
-		/*switch(nearestGhost.getMode()){
+		/*switch(){
 			case FEAR:
 
 			case CHASE:
@@ -109,16 +110,22 @@ public class PacSimMinimax implements PacAction {
 			return lose;
 
 
-		score += 100-remainingFood;
+		score -= 5*remainingFood;
 
-		score += 2*(nearestFood.i-nearestGhost.i);
+		score += (2*nearestGhost.i-nearestFood.i);
 
+		if (nearestFood.i == 0){
+			score+=300;
+		}
+		else {
+			score += 50 / nearestFood.i;
+		}
 
-		score += 10/nearestFood.i;
-
-
-
-		score -= 100/nearestGhost.i;
+		// ignore or reduce if ghosts
+		if(ghostMode == PacMode.CHASE){
+			factor = 5;
+		}
+		score -= (factor*10)/nearestGhost.i;
 
 		return score;
 
@@ -208,9 +215,7 @@ public class PacSimMinimax implements PacAction {
 		for(Point move : pacMoves){
 			if (move != null){
 				// check to see if we ate any food
-				if (newFood.contains(move)){
-					newFood.remove(move);
-				}
+
 				BoardState bs = new BoardState(newFood,move,boardState.g1Pos,boardState.g2Pos);
 				int val = min(bs, depth,alpha,beta);
 				maxValue = Integer.max(maxValue,val);
@@ -219,7 +224,9 @@ public class PacSimMinimax implements PacAction {
 				}
 				alpha = Integer.max(alpha,maxValue);
 
-
+				if (newFood.contains(move)){
+					newFood.remove(move);
+				}
 
 			}
 		}
@@ -285,12 +292,10 @@ public class PacSimMinimax implements PacAction {
 			if (move != null){
 				PacCell cell = board[move.x][move.y];
 				if (cell instanceof HouseCell){
+					i++;
 					continue;
 				}
-				if (newFood.contains(move)){
-					//System.out.printf("%s will eat food\n",move.toString());
-					newFood.remove(move);
-				}
+
 				BoardState bs = new BoardState(newFood,move,boardState.g1Pos,boardState.g2Pos);
 				int val = min(bs, depth,alpha,beta);
 				if (val>maxVal){
@@ -298,6 +303,10 @@ public class PacSimMinimax implements PacAction {
 					maxIndex = i;
 				}
 
+				if (newFood.contains(move)){
+					//System.out.printf("%s will eat food\n",move.toString());
+					newFood.remove(move);
+				}
 				//System.out.printf("%s dir:%d val: %d\n",pacPos.toString(),i,val);
 
 			}
