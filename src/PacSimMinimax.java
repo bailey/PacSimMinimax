@@ -135,8 +135,7 @@ public class PacSimMinimax implements PacAction {
 
 
 		List<Point> food = PacUtils.findFood(grid);
-		List<Point> morphs = PacUtils.findMorphs(grid);
-		//PacUtils.po
+		List<Point> morphs = PacUtils.findMorphs(board);
 		PacUtils.appendPointList(food,morphs);
 		// get ghost and pac positions
 		List<Point> ghostPositions = PacUtils.findGhosts(grid);
@@ -206,7 +205,9 @@ public class PacSimMinimax implements PacAction {
 		for(Point move : pacMoves){
 			if (move != null){
 				// check to see if we ate any food
-
+				if (newFood.contains(move)){
+					newFood.remove(move);
+				}
 				BoardState bs = new BoardState(newFood,move,boardState.g1Pos,boardState.g2Pos);
 				int val = min(bs, depth,alpha,beta);
 				maxValue = Integer.max(maxValue,val);
@@ -215,9 +216,7 @@ public class PacSimMinimax implements PacAction {
 				}
 				alpha = Integer.max(alpha,maxValue);
 
-				if (newFood.contains(move)){
-					newFood.remove(move);
-				}
+
 
 			}
 		}
@@ -287,6 +286,11 @@ public class PacSimMinimax implements PacAction {
 					continue;
 				}
 
+				if (newFood.contains(move)){
+					//System.out.printf("%s will eat food\n",move.toString());
+					newFood.remove(move);
+				}
+
 				BoardState bs = new BoardState(newFood,move,boardState.g1Pos,boardState.g2Pos);
 				int val = min(bs, depth,alpha,beta);
 				if (val>maxVal){
@@ -294,10 +298,7 @@ public class PacSimMinimax implements PacAction {
 					maxIndex = i;
 				}
 
-				if (newFood.contains(move)){
-					//System.out.printf("%s will eat food\n",move.toString());
-					newFood.remove(move);
-				}
+
 				//System.out.printf("%s dir:%d val: %d\n",pacPos.toString(),i,val);
 
 			}
