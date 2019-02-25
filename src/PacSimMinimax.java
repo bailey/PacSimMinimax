@@ -80,6 +80,15 @@ public class PacSimMinimax implements PacAction {
 		board = null;
 	}
 
+	/*
+		Our evaluation function initially checks for 0 food pellets, as that would imply a win and no scoring is necessary.
+		We then locate the nearest food and ghost. A loss is returned in the case that the ghost is <= 1 cell away from PacMan.
+		The first score calculation is 100 - remaining food pellets.
+		This prioritizes consumption of food pellets as we get closer to the final food.
+		We want to increase the score when the nearest food is further away than the closest ghost.
+		Subsequently, we want to decrease the score whent the closest ghost is further away than the closest food.
+		So as food gets closer we bump up the score while as the ghost gets closer we decrease the score.
+	*/
 	private int evalFunct(BoardState boardState, Point pac){
 
 		int score = 0;
@@ -93,17 +102,6 @@ public class PacSimMinimax implements PacAction {
 
 		PointInt nearestGhost = nearest(pac, new ArrayList<>(
 			Arrays.asList(boardState.g1Pos, boardState.g2Pos)));
-
-
-
-
-		/*switch(nearestGhost.getMode()){
-			case FEAR:
-
-			case CHASE:
-
-			case SCATTER:
-		}*/
 
 		if (nearestGhost.i <= 1)
 			return lose;
