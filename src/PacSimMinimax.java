@@ -21,6 +21,8 @@ public class PacSimMinimax implements PacAction {
 	static final int win = 1000000;
 	static final int lose = -1000000;
 
+
+
 	private class PointInt{
 		public final Point p;
 		public final int i;
@@ -78,7 +80,7 @@ public class PacSimMinimax implements PacAction {
 		board = null;
 	}
 
-	public int evalFunct(BoardState boardState, Point pac){
+	private int evalFunct(BoardState boardState, Point pac){
 
 		int score = 0;
 
@@ -279,8 +281,12 @@ public class PacSimMinimax implements PacAction {
 		int alpha = Integer.MIN_VALUE;
 		int beta = Integer.MAX_VALUE;
 		for(Point move : moves){
-			if (move != null){
 
+			if (move != null){
+				PacCell cell = board[move.x][move.y];
+				if (cell instanceof HouseCell){
+					continue;
+				}
 				if (newFood.contains(move)){
 					//System.out.printf("%s will eat food\n",move.toString());
 					newFood.remove(move);
