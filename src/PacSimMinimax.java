@@ -97,15 +97,6 @@ public class PacSimMinimax implements PacAction {
 		PacMode ghostMode = PacUtils.nearestGhost(pac,board).getMode();
 
 
-
-		/*switch(){
-			case FEAR:
-
-			case CHASE:
-
-			case SCATTER:
-		}*/
-
 		if (nearestGhost.i <= 1)
 			return lose;
 
